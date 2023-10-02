@@ -24,7 +24,7 @@ class FindIdActivity : AppCompatActivity() {
 
     fun setObserve() {
         findIdViewModel.toastMessage.observe(this) {
-            if (it.isEmpty()) {
+            if (!it.isEmpty()) {
                 Toast.makeText(this, it, Toast.LENGTH_LONG).show()
             }
         }

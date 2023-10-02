@@ -16,13 +16,17 @@ class FindIdViewModel : ViewModel() {
         firestore.collection("findIds").whereEqualTo("phoneNumber", phoneNumber).get().addOnCompleteListener {
             println(it.result.documents)
             if(it.isSuccessful && it.result.documents.size > 0) {
-                var findIdModel = it.result.documents.first().toObject(FindIdModel::class.java)
+                val findIdModel = it.result.documents.first().toObject(FindIdModel::class.java)
                 toastMessage.value = "당신의 아이디는 " + findIdModel?.id
             } else {
                 toastMessage.value = "정보가 정확하지 않습니다."
             }
         }
+
+        print("test")
     }
+
+
 
     fun findMyPassword() {
         auth.sendPasswordResetEmail(id).addOnCompleteListener {
