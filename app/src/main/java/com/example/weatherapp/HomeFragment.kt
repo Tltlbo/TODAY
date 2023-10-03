@@ -1,6 +1,7 @@
 package com.example.weatherapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Point
 import android.location.Address
 import android.location.Geocoder
@@ -21,6 +22,8 @@ import com.example.weatherapp.data.TEMPITEM
 import com.example.weatherapp.data.WEATHER
 import com.example.weatherapp.data.WEATHERITEM
 import com.example.weatherapp.databinding.FragmentHomeBinding
+import com.example.weatherapp.detailweather.WeatherListActivity
+import com.example.weatherapp.login.InputNumberActivity
 import com.example.weatherapp.network.TempObject
 import com.example.weatherapp.network.WeatherObject
 import com.google.android.gms.location.LocationCallback
@@ -69,6 +72,13 @@ class HomeFragment :  Fragment(){
         viewBinding.btnRefresh.setOnClickListener {
             requestLocation()
         }
+
+
+        viewBinding.btnGotoList.setOnClickListener {
+            startActivity(Intent(requireActivity(), WeatherListActivity::class.java))
+        }
+
+
         super.onStart()
     }
 
