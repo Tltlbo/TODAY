@@ -16,12 +16,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WeatherApp"
+        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".detailweather.WeatherListActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity"
+            />
         <activity
             android:name=".login.InputNumberActivity"
             android:exported="false" />
