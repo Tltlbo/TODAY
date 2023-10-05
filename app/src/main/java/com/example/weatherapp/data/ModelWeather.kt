@@ -1,6 +1,7 @@
 package com.example.weatherapp.data
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 // 날씨 정보를 담는 데이터 클래스
 data class ModelWeather (
@@ -9,7 +10,8 @@ data class ModelWeather (
     @SerializedName("sky") var sky: String = "",           // 하늘 상태
     @SerializedName("temp") var temp: String = "",          // 기온
     @SerializedName("fcstTime") var fcstTime: String = "",      // 예보시각
-)
+    @SerializedName("address") var address : String = "",
+) : Serializable
 
 // xml 파일 형식을 data class로 구현
 data class WEATHER (val response : WEATHERRESPONSE)

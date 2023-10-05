@@ -20,10 +20,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".detailweather.DetailWeatherActivity"
+            android:exported="false"
+            android:parentActivityName=".detailweather.WeatherListActivity"
+            />
+        <activity
             android:name=".detailweather.WeatherListActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity"
-            />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".login.InputNumberActivity"
             android:exported="false" />
@@ -41,7 +45,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

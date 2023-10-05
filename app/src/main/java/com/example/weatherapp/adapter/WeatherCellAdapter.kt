@@ -6,19 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.example.weatherapp.R
-import com.example.weatherapp.data.ModelRecentWeather
+import com.example.weatherapp.data.ModelWeather
 import com.example.weatherapp.databinding.ListCellWeatherBinding
 
-class WeatherCellAdapter(private val context : Context, private val items : MutableList<ModelRecentWeather>) : BaseAdapter() {
+class WeatherCellAdapter(private val context : Context, private val items : MutableList<ModelWeather>) : BaseAdapter() {
 
     override fun getCount(): Int = items.size
 
-    override fun getItem(position: Int): ModelRecentWeather = items[position]
+    override fun getItem(position: Int): ModelWeather = items[position]
     override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val binding = ListCellWeatherBinding.inflate(LayoutInflater.from(context))
-        val item : ModelRecentWeather = items[position]
+        val item : ModelWeather = items[position]
         binding.imageWeather.setImageResource(getRainImage(item.rainType, item.sky))
         binding.tvTemp.text = item.temp + "°"
         binding.address.text = item.address
