@@ -19,8 +19,9 @@ class RecommendFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val app = requireActivity().application as MyApplication
         viewBinding = FragmentRecommendBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        viewModel = app.mainViewModel
 
         return viewBinding.root
     }

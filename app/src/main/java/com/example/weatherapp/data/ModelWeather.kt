@@ -1,17 +1,23 @@
 package com.example.weatherapp.data
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+import kotlinx.parcelize.Parcelize
 
 // 날씨 정보를 담는 데이터 클래스
+@Parcelize
 data class ModelWeather (
-    @SerializedName("rainType") var rainType: String = "",      // 강수 형태
-    @SerializedName("humidity") var humidity: String = "",      // 습도
-    @SerializedName("sky") var sky: String = "",           // 하늘 상태
-    @SerializedName("temp") var temp: String = "",          // 기온
-    @SerializedName("fcstTime") var fcstTime: String = "",      // 예보시각
-    @SerializedName("address") var address : String = "",
-) : Serializable
+    @SerializedName("rainType") var rainType: String = "None",      // 강수 형태
+    @SerializedName("humidity") var humidity: String = "None",      // 습도
+    @SerializedName("sky") var sky: String = "None",           // 하늘 상태
+    @SerializedName("temp") var temp: String = "None",          // 기온
+    @SerializedName("fcstTime") var fcstTime: String = "None",      // 예보시각
+    @SerializedName("address") var address : String = "None",
+    @SerializedName("nx") var nx : Int = 0,
+    @SerializedName("ny") var ny : Int = 0,
+    @SerializedName("index") var index : Int = 0,
+) : Parcelable
 
 // xml 파일 형식을 data class로 구현
 data class WEATHER (val response : WEATHERRESPONSE)

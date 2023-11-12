@@ -5,27 +5,55 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
+import com.example.weatherapp.component.Common
 import com.example.weatherapp.data.ModelWeather
 import com.example.weatherapp.databinding.ListCellWeatherBinding
 
-class WeatherCellAdapter(private val context : Context, private val items : MutableList<ModelWeather>) : BaseAdapter() {
-
-    override fun getCount(): Int = items.size
-
-    override fun getItem(position: Int): ModelWeather = items[position]
-    override fun getItemId(position: Int): Long = position.toLong()
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val binding = ListCellWeatherBinding.inflate(LayoutInflater.from(context))
-        val item : ModelWeather = items[position]
-        binding.imageWeather.setImageResource(getRainImage(item.rainType, item.sky))
-        binding.tvTemp.text = item.temp + "°"
-        binding.address.text = item.address
-        binding.tvHumidity.text = item.humidity
-
-        return binding.root
+class exWeatherAdapter(val context: Context ,val itemList : MutableList<ModelWeather>) : RecyclerView.Adapter<exWeatherAdapter.WeatherViewHolder>() {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): exWeatherAdapter.WeatherViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_cell_weather,parent,false)
+        return WeatherViewHolder(view)
     }
+
+    interface OnItemClickListener {
+        fun onItemClick(position: Int) {}
+    }
+
+    var itemClickListener : OnItemClickListener? = null
+
+    override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
+        holder.weatherimage.setImageResource(getRainImage(itemList[position].rainType, itemList[position].sky))
+        holder.addressname.text = Common().readExcel(itemList[position].nx,itemList[position].ny, context)
+        holder.humidity.text = "습도 " + itemList[position].humidity + "%"
+    }
+
+    override fun getItemCount(): Int {
+        return itemList.count()
+    }
+
+    fun updateList() {
+        notifyDataSetChanged()
+    }
+
+    inner class WeatherViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+        val weatherimage = itemView.findViewById<ImageView>(R.id.imageWeather)
+        val addressname = itemView.findViewById<TextView>(R.id.address)
+        val humidity = itemView.findViewById<TextView>(R.id.tvHumidity)
+
+        init {
+            itemView.setOnClickListener {
+                itemClickListener?.onItemClick(adapterPosition)
+            }
+        }
+    }
+
 
     fun getRainImage(rainType : String, sky: String) : Int {
         return when(rainType) {

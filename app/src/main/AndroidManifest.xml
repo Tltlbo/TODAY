@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         android:usesCleartextTraffic="true"
+            android:name=".MyApplication"
         tools:targetApi="31">
         <activity
             android:name=".detailweather.DetailWeatherActivity"
@@ -27,7 +28,8 @@
         <activity
             android:name=".detailweather.WeatherListActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+                />
         <activity
             android:name=".login.InputNumberActivity"
             android:exported="false" />

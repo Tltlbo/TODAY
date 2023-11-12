@@ -10,10 +10,12 @@ xmlns:tools="http://schemas.android.com/tools">
 </data>
 
 
-<ListView
-    android:id="@+id/listView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/weatherlist"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            tools:listitem="@layout/list_cell_weather"
+        />
 
 
 </layout>

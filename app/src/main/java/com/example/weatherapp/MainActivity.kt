@@ -3,6 +3,7 @@ package com.example.weatherapp
 import android.Manifest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -26,10 +27,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        val app = application as MyApplication
+
+        viewModel = app.mainViewModel
 
 
         supportFragmentManager.beginTransaction().add(fl.id, HomeFragment()).commit()
+
+
 
         val permissionList = arrayOf<String>(
             // 위치 권한
@@ -54,6 +59,8 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
+
+
 
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(fl.id, fragment).commit()

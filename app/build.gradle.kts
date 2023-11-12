@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -43,6 +44,13 @@ android {
         dataBinding = true
         buildConfig = true
     }
+    sourceSets {
+        getByName("main") {
+            assets {
+                srcDirs("src/main/assets")
+            }
+        }
+    }
 }
 
 fun getApiKey(propertyKey : String) : String {
@@ -54,6 +62,8 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("org.apache.poi:poi:3.9")
+    implementation("org.apache.poi:poi-ooxml:3.9")
 
     implementation("com.google.android.gms:play-services-auth:20.6.0")
 
@@ -63,6 +73,7 @@ dependencies {
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("com.google.android.gms:play-services-location:21.0.1")
+    implementation(files("libs\\jxl-2.6.12.jar"))
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

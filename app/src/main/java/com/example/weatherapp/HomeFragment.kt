@@ -49,17 +49,18 @@ class HomeFragment :  Fragment(){
 
     private lateinit var viewBinding: FragmentHomeBinding
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val app = requireActivity().application as MyApplication
+
         viewBinding = FragmentHomeBinding.inflate(layoutInflater)
         viewBinding.tvDate.text = SimpleDateFormat("MM월 dd일", Locale.getDefault()).format(Calendar.getInstance().time) + "날씨"
 
-        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        viewModel = app.mainViewModel
 
 
         // <새로고침> 버튼 누를 때 위치 정보 & 날씨 정보 다시 가져오기
@@ -77,10 +78,9 @@ class HomeFragment :  Fragment(){
         viewBinding.btnGotoList.setOnClickListener {
             startActivity(Intent(requireActivity(), WeatherListActivity::class.java))
         }
-
-
         super.onStart()
     }
+
 
     // 날씨 가져와서 설정하기
     private fun setWeather(nx : Int, ny : Int) {
@@ -234,7 +234,7 @@ class HomeFragment :  Fragment(){
                                 Calendar.getInstance().time) + " 날씨"
                             // nx, ny지점의 날씨 가져와서 설정하기
                             setWeather(curPoint!!.x, curPoint!!.y)
-                            getLocationName(location.latitude, location.longitude)
+                            //getLocationName(location.latitude, location.longitude)
                             getTemp(curPoint!!.x, curPoint!!.y)
 
 

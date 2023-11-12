@@ -31,8 +31,9 @@ class FineDustFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val app = requireActivity().application as MyApplication
         viewBinding = FragmentFinedustBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        viewModel = app.mainViewModel
 
         getDust()
 
