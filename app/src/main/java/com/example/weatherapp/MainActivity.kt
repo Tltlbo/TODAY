@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
                 when (it.itemId) {
                     R.id.menu_home -> HomeFragment()
                     R.id.menu_finedust -> FineDustFragment()
+                    R.id.menu_UV -> UVFragment()
                     else -> RecommendFragment()
                 }
             )

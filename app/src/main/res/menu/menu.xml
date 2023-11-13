@@ -15,4 +15,10 @@
         android:enabled="true"
         android:id="@+id/menu_finedust"
         android:icon="@drawable/baseline_masks_24" />
+
+    <item
+            android:title="자외선"
+            android:enabled="true"
+            android:id="@+id/menu_UV"
+            android:icon="@drawable/baseline_masks_24" />
 </menu>

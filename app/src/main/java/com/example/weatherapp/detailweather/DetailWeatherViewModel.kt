@@ -10,9 +10,10 @@ class DetailWeatherViewModel : ViewModel() {
     var weather : ModelWeather = ModelWeather()
     var checkweather : MutableLiveData<Boolean> = MutableLiveData(false)
 
-    fun deleteweatherInfo(weather : ModelWeather, locationlist : ArrayList<Pair<Int,Int>>, weatherlist : MutableList<ModelWeather>) {
+    fun deleteweatherInfo(weather : ModelWeather, locationlist : ArrayList<Pair<Int,Int>>, weatherlist : MutableList<ModelWeather>, oWeatherList : MutableLiveData<List<ModelWeather>>) {
         locationlist.remove(Pair(weather.nx,weather.ny))
         weatherlist.remove(weather)
+        oWeatherList.value = weatherlist
     }
 
     fun favoriteWeather(weather : ModelWeather, locationlist : ArrayList<Pair<Int,Int>>, weatherlist : MutableList<ModelWeather>, oWeatherList : MutableLiveData<List<ModelWeather>>) {

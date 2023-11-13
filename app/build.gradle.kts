@@ -21,6 +21,7 @@ android {
         buildConfigField("String","URL_WEATHER", getApiKey("url.weather"))
         buildConfigField("String", "URL_DUST", getApiKey("url.dust"))
         buildConfigField("String","API_KEY", getApiKey("api.key"))
+        buildConfigField("String", "URL_UV", getApiKey("url.UV"))
     }
 
     buildTypes {

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.weatherapp.data.Item
 import com.example.weatherapp.data.modeldustX
 import com.example.weatherapp.databinding.FragmentFinedustBinding
@@ -51,8 +50,6 @@ class FineDustFragment : Fragment() {
             override fun onResponse(call: Call<modeldustX>, response: Response<modeldustX>) {
                 if (response.isSuccessful) {
                     val it : List<Item> = response.body()!!.response.body.items
-
-
 
 
 

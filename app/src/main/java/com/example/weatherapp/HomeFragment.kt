@@ -56,7 +56,6 @@ class HomeFragment :  Fragment(){
     ): View? {
 
         val app = requireActivity().application as MyApplication
-
         viewBinding = FragmentHomeBinding.inflate(layoutInflater)
         viewBinding.tvDate.text = SimpleDateFormat("MM월 dd일", Locale.getDefault()).format(Calendar.getInstance().time) + "날씨"
 
@@ -234,7 +233,7 @@ class HomeFragment :  Fragment(){
                                 Calendar.getInstance().time) + " 날씨"
                             // nx, ny지점의 날씨 가져와서 설정하기
                             setWeather(curPoint!!.x, curPoint!!.y)
-                            //getLocationName(location.latitude, location.longitude)
+                            getLocationName(location.latitude, location.longitude)
                             getTemp(curPoint!!.x, curPoint!!.y)
 
 
@@ -271,7 +270,7 @@ class HomeFragment :  Fragment(){
         if (address != null) {
             if (address.size != 0) {
                 str_Addr = address[3].getAddressLine(0) // 3으로 하면 깔끔
-                println(str_Addr)
+                println(str_Addr) // 예상한대로 광역시는 도 출력 x
                 val splitaddr = str_Addr.split(".")
                 viewBinding.address.text = splitaddr[0]
             }
