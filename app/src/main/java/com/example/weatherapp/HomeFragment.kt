@@ -44,6 +44,7 @@ class HomeFragment :  Fragment(){
     private var baseTime = "1100"      // 발표 시각
     private var curPoint : Point? = null    // 현재 위치의 격자 좌표를 저장할 포인트
     var atemp = ModelTemp()
+    var checkactivityattatched = false
 
     lateinit var viewModel : MainViewModel
 
@@ -68,6 +69,8 @@ class HomeFragment :  Fragment(){
     }
 
     override fun onStart() {
+
+        checkactivityattatched = true
         requestLocation() // 생명 주기 문제 에러
         viewBinding.btnRefresh.setOnClickListener {
             requestLocation()
@@ -78,6 +81,11 @@ class HomeFragment :  Fragment(){
             startActivity(Intent(requireActivity(), WeatherListActivity::class.java))
         }
         super.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        checkactivityattatched = false
     }
 
 
@@ -175,24 +183,15 @@ class HomeFragment :  Fragment(){
                     for (i in 0..totalCount) {
                         when(it[i].category) {
                             "TMX" -> atemp.maxTemp = it[i].fcstValue     // 최고 온도
-                            "TMN" -> atemp.mintemp = it[i].fcstValue   // 최저 온
+                            "TMN" -> atemp.minTemp = it[i].fcstValue   // 최저 온
                             else -> continue
                         }
                     }
 
                     var maxtemp = atemp.maxTemp
-                    var mintemp = atemp.mintemp
-                    var fragment = RecommendFragment()
-                    var bundle = Bundle()
-                    bundle.putDouble("maxtemp", maxtemp.toDouble())
-                    bundle.putDouble("mintemp", mintemp.toDouble())
-                    fragment.arguments
+                    var mintemp = atemp.minTemp
                     viewModel.atemp = atemp
 
-
-
-                    // 토스트 띄우기
-                    //Toast.makeText(applicationContext, it[0].fcstDate + ", " + it[0].fcstTime + "의 날씨 정보입니다.", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -223,18 +222,17 @@ class HomeFragment :  Fragment(){
                 override fun onLocationResult(p0: LocationResult) {
                     p0.let {
                         for (location in it.locations) {
-
-
                             // 현재 위치의 위경도를 격자 좌표로 변환
                             curPoint = Common().dfsXyConv(location.latitude, location.longitude)
-
+                            viewModel.nx = curPoint!!.x
+                            viewModel.ny = curPoint!!.y
                             // 오늘 날짜 텍스트뷰 설정
                             viewBinding.tvDate.text = SimpleDateFormat("MM월 dd일", Locale.getDefault()).format(
                                 Calendar.getInstance().time) + " 날씨"
                             // nx, ny지점의 날씨 가져와서 설정하기
                             setWeather(curPoint!!.x, curPoint!!.y)
                             getLocationName(location.latitude, location.longitude)
-                            getTemp(curPoint!!.x, curPoint!!.y)
+                            //getTemp(curPoint!!.x, curPoint!!.y)
 
 
                         }
@@ -255,6 +253,9 @@ class HomeFragment :  Fragment(){
     }
 
     private fun getLocationName(x : Double, y: Double) {
+
+        if(!checkactivityattatched) {return}
+
         val geocoder = Geocoder(requireActivity(), Locale.KOREA)
         // 얘 때문에 not attached 생명주기가 onCreateView가 아닌 Start에 줘야 함
 

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 // 온도 정보를 담는 데이터 클래스
 data class ModelTemp (
     @SerializedName("maxTemp") var maxTemp: String = "",          // 최고기온
-    @SerializedName("minTemp") var mintemp: String = "",          // 최저기온
+    @SerializedName("minTemp") var minTemp: String = "",          // 최저기온
     @SerializedName("fcstTime") var fcstTime: String = ""
 )
 

@@ -2,7 +2,6 @@ package com.example.weatherapp.network
 
 import com.example.weatherapp.BuildConfig
 import com.example.weatherapp.data.ModelUV
-import com.example.weatherapp.data.modeldustX
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

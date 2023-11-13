@@ -9,6 +9,9 @@ class MainViewModel : ViewModel() {
 
     var atemp = ModelTemp()
 
+    var nx : Int = 0
+    var ny : Int = 0
+
     var userLocation : MutableList<Pair<Int,Int>> = mutableListOf(
         Pair(60,127),
         Pair(68,100),

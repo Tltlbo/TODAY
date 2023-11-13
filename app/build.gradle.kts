@@ -22,6 +22,8 @@ android {
         buildConfigField("String", "URL_DUST", getApiKey("url.dust"))
         buildConfigField("String","API_KEY", getApiKey("api.key"))
         buildConfigField("String", "URL_UV", getApiKey("url.UV"))
+        buildConfigField("String", "KAKAO_KEY", getApiKey("kakao.key"))
+        buildConfigField("String", "URL_STATION", getApiKey("url.station"))
     }
 
     buildTypes {
