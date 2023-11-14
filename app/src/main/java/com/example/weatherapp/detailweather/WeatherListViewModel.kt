@@ -20,7 +20,7 @@ import java.util.Calendar
 import java.util.Locale
 
 class WeatherListViewModel : ViewModel() {
-    var userLocationList : ArrayList<Pair<Int, Int>> = arrayListOf()
+    var userLocationList : ArrayList<Triple<Int, Int, String>> = arrayListOf()
     var WeatherList : MutableList<ModelWeather> = mutableListOf() //이친구 순서가 뒤죽박죽되버림
     var index = 0
 
@@ -40,11 +40,11 @@ class WeatherListViewModel : ViewModel() {
         }
     }
 
-    fun callLocationList(locations : MutableList<Pair<Int,Int>>) {
+    fun callLocationList(locations : MutableList<Triple<Int,Int,String>>) {
 
         for (i in locations) {
             userLocationList.add(i)
-            WeatherList.add(ModelWeather(nx = i.first, ny = i.second))
+            WeatherList.add(ModelWeather(nx = i.first, ny = i.second, address = i.third))
         }
     }
 

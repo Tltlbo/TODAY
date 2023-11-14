@@ -30,7 +30,7 @@ class exWeatherAdapter(val context: Context ,val itemList : MutableList<ModelWea
 
     override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
         holder.weatherimage.setImageResource(getRainImage(itemList[position].rainType, itemList[position].sky))
-        holder.addressname.text = Common().readExcel(itemList[position].nx,itemList[position].ny, context)
+        holder.addressname.text = itemList[position].address
         holder.humidity.text = "습도 " + itemList[position].humidity + "%"
     }
 

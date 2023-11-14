@@ -10,14 +10,14 @@ class DetailWeatherViewModel : ViewModel() {
     var weather : ModelWeather = ModelWeather()
     var checkweather : MutableLiveData<Boolean> = MutableLiveData(false)
 
-    fun deleteweatherInfo(weather : ModelWeather, locationlist : ArrayList<Pair<Int,Int>>, weatherlist : MutableList<ModelWeather>, oWeatherList : MutableLiveData<List<ModelWeather>>) {
-        locationlist.remove(Pair(weather.nx,weather.ny))
+    fun deleteweatherInfo(weather : ModelWeather, locationlist : ArrayList<Triple<Int,Int, String>>, weatherlist : MutableList<ModelWeather>, oWeatherList : MutableLiveData<List<ModelWeather>>) {
+        locationlist.remove(Triple(weather.nx,weather.ny, weather.address))
         weatherlist.remove(weather)
         oWeatherList.value = weatherlist
     }
 
-    fun favoriteWeather(weather : ModelWeather, locationlist : ArrayList<Pair<Int,Int>>, weatherlist : MutableList<ModelWeather>, oWeatherList : MutableLiveData<List<ModelWeather>>) {
-        val index = locationlist.indexOf(Pair(weather.nx,weather.ny))
+    fun favoriteWeather(weather : ModelWeather, locationlist : ArrayList<Triple<Int,Int, String>>, weatherlist : MutableList<ModelWeather>, oWeatherList : MutableLiveData<List<ModelWeather>>) {
+        val index = locationlist.indexOf(Triple(weather.nx,weather.ny, weather.address))
         val templocation = locationlist.get(index)
         locationlist.remove(templocation)
         locationlist.add(0,templocation)

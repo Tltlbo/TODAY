@@ -47,6 +47,7 @@ class DetailWeatherActivity : AppCompatActivity() {
         val ny = viewModel.weather.ny
         setWeather(nx,ny)
 
+
         //버튼 관련
 
         viewBinding.deletebtn.setOnClickListener {

@@ -257,7 +257,6 @@ class HomeFragment :  Fragment(){
         if(!checkactivityattatched) {return}
 
         val geocoder = Geocoder(requireActivity(), Locale.KOREA)
-        // 얘 때문에 not attached 생명주기가 onCreateView가 아닌 Start에 줘야 함
 
         var address: List<Address>? = null
         val str_Addr: String
@@ -273,7 +272,9 @@ class HomeFragment :  Fragment(){
                 str_Addr = address[3].getAddressLine(0) // 3으로 하면 깔끔
                 println(str_Addr) // 예상한대로 광역시는 도 출력 x
                 val splitaddr = str_Addr.split(".")
+                val addr = splitaddr[0].split(" ")
                 viewBinding.address.text = splitaddr[0]
+                viewModel.address = addr[1]
             }
         }
 
