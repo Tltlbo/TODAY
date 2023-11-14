@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.get
+import com.example.weatherapp.detaildust.DetailDustViewModel
 import com.example.weatherapp.detaildust.DustListViewModel
 import com.example.weatherapp.detailweather.DetailWeatherViewModel
 import com.example.weatherapp.detailweather.WeatherListViewModel
@@ -29,6 +30,10 @@ class MyApplication  : Application(){
 
     val dustListVIewModel: DustListViewModel by lazy {
         ViewModelProvider(viewModelStore, ViewModelProvider.NewInstanceFactory()).get(DustListViewModel::class.java)
+    }
+
+    val detaildustVIewModel: DetailDustViewModel by lazy {
+        ViewModelProvider(viewModelStore, ViewModelProvider.NewInstanceFactory()).get(DetailDustViewModel::class.java)
     }
 
 

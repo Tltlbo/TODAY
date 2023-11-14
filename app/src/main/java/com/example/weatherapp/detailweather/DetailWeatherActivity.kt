@@ -33,7 +33,7 @@ class DetailWeatherActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val app = application as MyApplication
-        setContentView(R.layout.activity_detail_weather)
+
         viewBinding = ActivityDetailWeatherBinding.inflate(layoutInflater)
         viewBinding.tvDate.text = SimpleDateFormat("MM월 dd일", Locale.getDefault()).format(Calendar.getInstance().time) + "날씨"
         viewModel = app.detailWeatherViewModel
@@ -47,6 +47,7 @@ class DetailWeatherActivity : AppCompatActivity() {
         val ny = viewModel.weather.ny
         setWeather(nx,ny)
 
+        setContentView(viewBinding.root)
 
         //버튼 관련
 

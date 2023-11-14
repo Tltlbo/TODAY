@@ -27,7 +27,7 @@ class DustListActivity : AppCompatActivity() {
         binding = ActivityDustListBinding.inflate(layoutInflater)
         val app = application as MyApplication
 
-        supportActionBar?.title = "마지막 위치의 날씨"
+        supportActionBar?.title = "마지막 위치의 미세먼지"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewModel = app.dustListVIewModel
         mainViewModel = app.mainViewModel
@@ -44,7 +44,7 @@ class DustListActivity : AppCompatActivity() {
         dustAdapter.itemClickListener = object : DustAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
                 val dust = viewModel.DustList[position]
-                val intent = Intent(this@DustListActivity, DetailWeatherActivity::class.java)
+                val intent = Intent(this@DustListActivity, DetailDustActivity::class.java)
                 intent.putExtra("dust", dust)
                 startActivity(intent)
             }
