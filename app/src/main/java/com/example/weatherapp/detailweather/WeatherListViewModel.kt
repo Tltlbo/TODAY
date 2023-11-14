@@ -21,10 +21,7 @@ import java.util.Locale
 
 class WeatherListViewModel : ViewModel() {
     var userLocationList : ArrayList<Triple<Int, Int, String>> = arrayListOf()
-    var WeatherList : MutableList<ModelWeather> = mutableListOf() //이친구 순서가 뒤죽박죽되버림
-    var index = 0
-
-
+    var WeatherList : MutableList<ModelWeather> = mutableListOf()
 
     var _oWeatherList = MutableLiveData<List<ModelWeather>>()
     var oWeatherList : LiveData<List<ModelWeather>> = _oWeatherList

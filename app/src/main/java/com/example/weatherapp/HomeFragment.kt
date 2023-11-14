@@ -61,8 +61,7 @@ class HomeFragment :  Fragment(){
         viewBinding.tvDate.text = SimpleDateFormat("MM월 dd일", Locale.getDefault()).format(Calendar.getInstance().time) + "날씨"
 
         viewModel = app.mainViewModel
-
-
+        viewModel.modifyConv()
         // <새로고침> 버튼 누를 때 위치 정보 & 날씨 정보 다시 가져오기
 
         return viewBinding.root

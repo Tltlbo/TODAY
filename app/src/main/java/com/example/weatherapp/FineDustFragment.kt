@@ -3,6 +3,7 @@ package com.example.weatherapp
 import DustItem
 import ModelDust
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -15,6 +16,8 @@ import com.example.weatherapp.data.KakaoMapModel
 import com.example.weatherapp.data.ModelStation
 import com.example.weatherapp.data.StationItem
 import com.example.weatherapp.databinding.FragmentFinedustBinding
+import com.example.weatherapp.detaildust.DustListActivity
+import com.example.weatherapp.detailweather.WeatherListActivity
 import com.example.weatherapp.network.DustObject
 import com.example.weatherapp.network.KakaoObject
 import com.example.weatherapp.network.StationObject
@@ -47,6 +50,10 @@ class FineDustFragment : Fragment() {
         viewModel = app.mainViewModel
 
         requestLocation()
+
+        viewBinding.btnGotoList.setOnClickListener {
+            startActivity(Intent(requireActivity(), DustListActivity::class.java))
+        }
         return viewBinding.root
     }
 
@@ -61,15 +68,17 @@ class FineDustFragment : Fragment() {
                     val it: List<DustItem> = response.body()!!.response.body.items
 
 
-                    val totalCount = response.body()!!.response.body.items.count() - 1
-
                     viewBinding.dustinfoPm10.text = "미세먼지: " + it[0].pm10Value + "㎍/㎥"
                     viewBinding.dustinfoPm25.text = "초미세먼지: " + it[0].pm25Value + "㎍/㎥"
 
-                    if(it[0].pm10Value.toInt() <= 50) { viewBinding.totalDustResult.text = "좋음" }
-                    else if (it[0].pm10Value.toInt() <= 100) {viewBinding.totalDustResult.text = "보통"}
-                    else if (it[0].pm10Value.toInt() <= 250) {viewBinding.totalDustResult.text = "나쁨"}
-                    else {viewBinding.totalDustResult.text = "매우 나쁨"}
+                    if(it[0].pm10Value.toInt() <= 50) { viewBinding.totalDustResult.text = "좋음"
+                        viewBinding.imgDust.setImageResource(R.drawable.best)}
+                    else if (it[0].pm10Value.toInt() <= 100) {viewBinding.totalDustResult.text = "보통"
+                        viewBinding.imgDust.setImageResource(R.drawable.good)}
+                    else if (it[0].pm10Value.toInt() <= 250) {viewBinding.totalDustResult.text = "나쁨"
+                        viewBinding.imgDust.setImageResource(R.drawable.bad)}
+                    else {viewBinding.totalDustResult.text = "매우 나쁨"
+                        viewBinding.imgDust.setImageResource(R.drawable.terror)}
 
                 }
             }

@@ -3,6 +3,7 @@ package com.example.weatherapp
 
 import android.graphics.Point
 import androidx.lifecycle.ViewModel
+import com.example.weatherapp.component.Common
 import com.example.weatherapp.data.ModelTemp
 
 class MainViewModel : ViewModel() {
@@ -14,17 +15,24 @@ class MainViewModel : ViewModel() {
     var address : String = "주소"
 
     var userLocation : MutableList<Triple<Int, Int, String>> = mutableListOf(
-        Triple(60,127, "서울특별시"),
-        Triple(68,100, "대전광역시"),
-        Triple(60,121, "경기도 수원시 장안구"),
-        Triple(53,120, "경기도 안산시단원구 대부동"),
-        Triple(56,133, "경기도 파주시 문산읍"),
-        Triple(71,106, "충청북도 청주시상당구 남일"),
-        Triple(63,108, "충청남도 천안시동남구 풍세면"),
-        Triple(56,87, "전라북도 부안군"),
-        Triple(57,71, "전라남도 나주시 금천면")
+
     ) //요거는 ModelUser로
 
+    var primitiveLocation : MutableList<Triple<Double,Double,String>> = mutableListOf(
+        Triple(33.4110,126.4237, "제주"),
+        Triple(35.2052,128.1298, "진주"),
+        Triple(35.5537,129.2381, "울산"),
+        Triple(36.5438,127.3275, "세종"),
+        Triple(35.8356,128.6277, "대구"),
+        Triple(38.1940,128.5735, "강원")
+    )
+
+    fun modifyConv() {
+        for(i in primitiveLocation) {
+            val point = Common().dfsXyConv(i.first,i.second)
+            userLocation.add(Triple(point.x,point.y,i.third))
+        }
+    }
 
 
 }
