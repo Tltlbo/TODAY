@@ -31,6 +31,7 @@ class DustListActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewModel = app.dustListVIewModel
         mainViewModel = app.mainViewModel
+        app.dustlistflag = true
         setContentView(binding.root)
 
 

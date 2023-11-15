@@ -32,6 +32,7 @@ class UVListActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewModel = app.uvListViewModel
         mainViewModel = app.mainViewModel
+        app.uvlistflag = true
         setContentView(binding.root)
 
         if(viewModel.userLocationList.count() == 0) {

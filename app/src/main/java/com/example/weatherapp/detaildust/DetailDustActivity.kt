@@ -42,7 +42,7 @@ class DetailDustActivity : AppCompatActivity() {
 
 
         viewBinding.deletebtn.setOnClickListener {
-            viewModel.deletedustInfo(viewModel.dust,listViewModel.userLocationList,listViewModel.DustList, listViewModel._oDustList)
+            viewModel.deletedustInfo(viewModel.dust,listViewModel.userLocationList,listViewModel.DustList, listViewModel._oDustList, app)
             finish()
         }
         setContentView(viewBinding.root)

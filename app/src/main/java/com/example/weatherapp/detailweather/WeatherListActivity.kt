@@ -47,6 +47,7 @@ class WeatherListActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewModel = app.weatherListViewModel
         mainViewModel = app.mainViewModel
+        app.weatherlistflag = true
         setContentView(binding.root)
 
 

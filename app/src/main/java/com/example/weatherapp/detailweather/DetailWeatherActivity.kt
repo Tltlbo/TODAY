@@ -54,11 +54,11 @@ class DetailWeatherActivity : AppCompatActivity() {
         //버튼 관련
 
         viewBinding.deletebtn.setOnClickListener {
-            viewModel.deleteweatherInfo(viewModel.weather,listViewModel.userLocationList,listViewModel.WeatherList, listViewModel._oWeatherList)
+            viewModel.deleteweatherInfo(viewModel.weather,listViewModel.userLocationList,listViewModel.WeatherList, listViewModel._oWeatherList, app)
             finish()
         }
         viewBinding.favoritebtn.setOnClickListener {
-            viewModel.favoriteWeather(viewModel.weather, listViewModel.userLocationList,listViewModel.WeatherList, listViewModel._oWeatherList)
+            viewModel.favoriteWeather(viewModel.weather, listViewModel.userLocationList,listViewModel.WeatherList, listViewModel._oWeatherList, app)
         }
     }
 

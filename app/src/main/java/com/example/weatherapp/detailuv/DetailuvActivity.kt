@@ -30,7 +30,7 @@ class DetailuvActivity : AppCompatActivity() {
         viewBinding.UVImg.setImageResource(viewModel.getUVImage(viewModel.uv.maxUV))
 
         viewBinding.deletebtn.setOnClickListener {
-            viewModel.deleteuvInfo(viewModel.uv,listViewModel.userLocationList,listViewModel.UVList, listViewModel._oUVList)
+            viewModel.deleteuvInfo(viewModel.uv,listViewModel.userLocationList,listViewModel.UVList, listViewModel._oUVList, app)
             finish()
         }
 
