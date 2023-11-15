@@ -1,16 +1,23 @@
 package com.example.weatherapp
 
+import android.graphics.Point
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.example.weatherapp.component.Common
 import com.example.weatherapp.data.TEMP
 import com.example.weatherapp.data.TEMPITEM
 import com.example.weatherapp.databinding.FragmentRecommendBinding
 import com.example.weatherapp.network.TempObject
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import retrofit2.Call
 import retrofit2.Response
 import java.text.SimpleDateFormat
@@ -42,7 +49,10 @@ class RecommendFragment : Fragment() {
         viewBinding.maxTemp.text = viewModel.atemp.maxTemp + "°C"
         viewBinding.minTemp.text = viewModel.atemp.minTemp + "°C"
 
-        getTemp(viewModel.nx, viewModel.ny)
+        requestLocation()
+        updateWeatherImage()
+
+
         super.onStart()
     }
     private fun updateWeatherImage() {
@@ -71,6 +81,41 @@ class RecommendFragment : Fragment() {
         }
 
         imageView.setImageResource(imageResourceId)
+    }
+
+    private fun requestLocation() {
+        var curPoint : Point? = null
+        val locationClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
+
+        try {
+            // 나의 현재 위치 요청
+            val locationRequest = LocationRequest.create()
+            locationRequest.run {
+                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+                interval = 60 * 1000    // 요청 간격(1초)
+            }
+            val locationCallback = object : LocationCallback() {
+                // 요청 결과
+                override fun onLocationResult(p0: LocationResult) {
+                    p0.let {
+                        for (location in it.locations) {
+                            // 현재 위치의 위경도를 격자 좌표로 변환
+                            curPoint = Common().dfsXyConv(location.latitude, location.longitude)
+                            getTemp(curPoint!!.x, curPoint!!.y)
+                        }
+                    }
+                }
+            }
+            // 내 위치 실시간으로 감지
+            Looper.myLooper()?.let {
+                locationClient.requestLocationUpdates(locationRequest, locationCallback,
+                    it)
+            }
+
+
+        } catch (e : SecurityException) {
+            e.printStackTrace()
+        }
     }
 
     private fun getTemp(nx : Int, ny : Int) {

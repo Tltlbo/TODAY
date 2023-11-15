@@ -38,9 +38,11 @@ class WeatherListViewModel : ViewModel() {
     }
 
     fun callLocationList(locations : MutableList<Triple<Int,Int,String>>) {
-
         for (i in locations) {
-            userLocationList.add(i)
+            val parseaddress = i.third.split(" ")
+            val temp : Triple<Int, Int, String> = Triple(i.first,i.second,parseaddress[1])
+
+            userLocationList.add(temp)
             WeatherList.add(ModelWeather(nx = i.first, ny = i.second, address = i.third))
         }
     }

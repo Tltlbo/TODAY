@@ -28,14 +28,17 @@ class UVListViewModel : ViewModel() {
 
     fun setUV(uvlist : MutableList<UVItem>) {
         for(i in uvlist) {
-            selectaddresscode(i.address,i)
+            val parseaddr = i.address.split(" ")
+            selectaddresscode(parseaddr[1],i.address,i)
         }
     }
 
 
     fun callLocationList(locations : MutableList<Triple<Double,Double,String>>) {
         for (i in locations) {
-            userLocationList.add(i)
+            val parseaddress = i.third.split(" ")
+            val temp : Triple<Double, Double, String> = Triple(i.first,i.second,parseaddress[1])
+            userLocationList.add(temp)
             UVList.add(UVItem(address = i.third))
             _oUVList.value = UVList
         }
@@ -73,24 +76,24 @@ class UVListViewModel : ViewModel() {
         })
     }
 
-    fun selectaddresscode(address : String, ModelUV : UVItem) {
-        if(address.equals("서울특별시")) {getUV("1100000000", address, ModelUV)}
-        else if(address.equals("부산광역시")) {getUV("2600000000", address, ModelUV)}
-        else if(address.equals("대구광역시")) {getUV("2700000000", address, ModelUV)}
-        else if(address.equals("인천광역시")) {getUV("2800000000", address, ModelUV)}
-        else if(address.equals("광주광역시")) {getUV("2900000000", address, ModelUV)}
-        else if(address.equals("대전광역시")) {getUV("3000000000", address, ModelUV)}
-        else if(address.equals("울산광역시")) {getUV("3100000000", address, ModelUV)}
-        else if(address.equals("세종특별자치시")) {getUV("3600000000", address, ModelUV)}
-        else if(address.equals("경기도")) {getUV("4100000000", address, ModelUV)}
-        else if(address.equals("충청북도")) {getUV("4300000000", address, ModelUV)}
-        else if(address.equals("충청남도")) {getUV("4400000000", address, ModelUV)}
-        else if(address.equals("전라북도")) {getUV("4500000000", address, ModelUV)}
-        else if(address.equals("전라남도")) {getUV("4600000000", address, ModelUV)}
-        else if(address.equals("경상북도")) {getUV("4700000000", address, ModelUV)}
-        else if(address.equals("경상남도")) {getUV("4800000000", address, ModelUV)}
-        else if(address.equals("제주특별자치도")) {getUV("5000000000", address, ModelUV)}
-        else if(address.equals("이어도")) {getUV("5019000000", address, ModelUV)}
-        else if(address.equals("강원도")) {getUV("5100000000", address, ModelUV)}
+    fun selectaddresscode(address : String, primaddr : String ,ModelUV : UVItem) {
+        if(address.equals("서울특별시")) {getUV("1100000000", primaddr, ModelUV)}
+        else if(address.equals("부산광역시")) {getUV("2600000000", primaddr ,ModelUV)}
+        else if(address.equals("대구광역시")) {getUV("2700000000", primaddr, ModelUV)}
+        else if(address.equals("인천광역시")) {getUV("2800000000", primaddr, ModelUV)}
+        else if(address.equals("광주광역시")) {getUV("2900000000", primaddr, ModelUV)}
+        else if(address.equals("대전광역시")) {getUV("3000000000", primaddr, ModelUV)}
+        else if(address.equals("울산광역시")) {getUV("3100000000", primaddr, ModelUV)}
+        else if(address.equals("세종특별자치시")) {getUV("3600000000", primaddr, ModelUV)}
+        else if(address.equals("경기도")) {getUV("4100000000",primaddr, ModelUV)}
+        else if(address.equals("충청북도")) {getUV("4300000000", primaddr, ModelUV)}
+        else if(address.equals("충청남도")) {getUV("4400000000", primaddr, ModelUV)}
+        else if(address.equals("전라북도")) {getUV("4500000000", primaddr, ModelUV)}
+        else if(address.equals("전라남도")) {getUV("4600000000", primaddr, ModelUV)}
+        else if(address.equals("경상북도")) {getUV("4700000000", primaddr, ModelUV)}
+        else if(address.equals("경상남도")) {getUV("4800000000", primaddr, ModelUV)}
+        else if(address.equals("제주특별자치도")) {getUV("5000000000", primaddr, ModelUV)}
+        else if(address.equals("이어도")) {getUV("5019000000",primaddr, ModelUV)}
+        else if(address.equals("강원도")) {getUV("5100000000", primaddr, ModelUV)}
     }
 }

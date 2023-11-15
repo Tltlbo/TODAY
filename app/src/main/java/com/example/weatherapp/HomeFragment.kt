@@ -38,15 +38,14 @@ import java.util.Calendar
 import java.util.Locale
 
 
-class HomeFragment :  Fragment(){
+class HomeFragment :  Fragment() {
 
     private var baseDate = "20230809"  // 발표 일자
     private var baseTime = "1100"      // 발표 시각
-    private var curPoint : Point? = null    // 현재 위치의 격자 좌표를 저장할 포인트
-    var atemp = ModelTemp()
+    private var curPoint: Point? = null    // 현재 위치의 격자 좌표를 저장할 포인트
     var checkactivityattatched = false
 
-    lateinit var viewModel : MainViewModel
+    lateinit var viewModel: MainViewModel
 
     private lateinit var viewBinding: FragmentHomeBinding
 
@@ -58,7 +57,10 @@ class HomeFragment :  Fragment(){
 
         val app = requireActivity().application as MyApplication
         viewBinding = FragmentHomeBinding.inflate(layoutInflater)
-        viewBinding.tvDate.text = SimpleDateFormat("MM월 dd일", Locale.getDefault()).format(Calendar.getInstance().time) + "날씨"
+        viewBinding.tvDate.text = SimpleDateFormat(
+            "MM월 dd일",
+            Locale.getDefault()
+        ).format(Calendar.getInstance().time) + "날씨"
 
         viewModel = app.mainViewModel
         viewModel.modifyConv()
@@ -89,7 +91,7 @@ class HomeFragment :  Fragment(){
 
 
     // 날씨 가져와서 설정하기
-    private fun setWeather(nx : Int, ny : Int) {
+    private fun setWeather(nx: Int, ny: Int) {
         // 준비 단계 : base_date(발표 일자), base_time(발표 시각)
         // 현재 날짜, 시간 정보 가져오기
         val cal = Calendar.getInstance()
@@ -106,7 +108,8 @@ class HomeFragment :  Fragment(){
 
         // 날씨 정보 가져오기
         // (한 페이지 결과 수 = 60, 페이지 번호 = 1, 응답 자료 형식-"JSON", 발표 날싸, 발표 시각, 예보지점 좌표)
-        val call = WeatherObject.getRetrofitService().getWeather(60, 1, "JSON", baseDate, baseTime, nx, ny)
+        val call =
+            WeatherObject.getRetrofitService().getWeather(60, 1, "JSON", baseDate, baseTime, nx, ny)
 
         // 비동기적으로 실행하기
         call.enqueue(object : retrofit2.Callback<WEATHER> {
@@ -117,14 +120,21 @@ class HomeFragment :  Fragment(){
                     val it: List<WEATHERITEM> = response.body()!!.response.body.items.item
 
                     // 현재 시각부터 1시간 뒤의 날씨 6개를 담을 배열
-                    val weatherArr = arrayOf(ModelWeather(), ModelWeather(), ModelWeather(), ModelWeather(), ModelWeather(), ModelWeather())
+                    val weatherArr = arrayOf(
+                        ModelWeather(),
+                        ModelWeather(),
+                        ModelWeather(),
+                        ModelWeather(),
+                        ModelWeather(),
+                        ModelWeather()
+                    )
 
                     // 배열 채우기
                     var index = 0
                     val totalCount = response.body()!!.response.body.totalCount - 1
                     for (i in 0..totalCount) {
                         index %= 6
-                        when(it[i].category) {
+                        when (it[i].category) {
                             "PTY" -> weatherArr[index].rainType = it[i].fcstValue     // 강수 형태
                             "REH" -> weatherArr[index].humidity = it[i].fcstValue     // 습도
                             "SKY" -> weatherArr[index].sky = it[i].fcstValue          // 하늘 상태
@@ -150,59 +160,13 @@ class HomeFragment :  Fragment(){
             // 응답 실패 시
             override fun onFailure(call: Call<WEATHER>, t: Throwable) {
 
-                viewBinding.tvError.text = "api fail : " +  t.message.toString() + "\n 다시 시도해주세요."
+                viewBinding.tvError.text = "api fail : " + t.message.toString() + "\n 다시 시도해주세요."
                 viewBinding.tvError.visibility = View.VISIBLE
                 Log.d("api fail", t.message.toString())
             }
         })
     }
 
-    private fun getTemp(nx : Int, ny : Int) {
-        // 준비 단계 : base_date(발표 일자), base_time(발표 시각)
-        // 현재 날짜, 시간 정보 가져오기
-
-        // 날씨 정보 가져오기
-        // (한 페이지 결과 수 = 200, 페이지 번호 = 1, 응답 자료 형식-"JSON", 발표 날싸, 발표 시각, 예보지점 좌표)
-        val call = TempObject.getRetrofitService().getTemp(200, 1, "JSON", (baseDate.toInt() - 1).toString(), "2300", nx, ny)
-
-        // 비동기적으로 실행하기
-        call.enqueue(object : retrofit2.Callback<TEMP> {
-            // 응답 성공 시
-            override fun onResponse(call: Call<TEMP>, response: Response<TEMP>) {
-                if (response.isSuccessful) {
-                    // 날씨 정보 가져오기
-                    val it: List<TEMPITEM> = response.body()!!.response.body.items.item
-
-                    var hightemp: String = ""
-                    var lowtemp: String = ""
-
-
-
-                    val totalCount = response.body()!!.response.body.items.item.count() - 1
-                    for (i in 0..totalCount) {
-                        when(it[i].category) {
-                            "TMX" -> atemp.maxTemp = it[i].fcstValue     // 최고 온도
-                            "TMN" -> atemp.minTemp = it[i].fcstValue   // 최저 온
-                            else -> continue
-                        }
-                    }
-
-                    var maxtemp = atemp.maxTemp
-                    var mintemp = atemp.minTemp
-                    viewModel.atemp = atemp
-
-                }
-            }
-
-            // 응답 실패 시
-            override fun onFailure(call: Call<TEMP>, t: Throwable) {
-
-                viewBinding.tvError.text = "api fail : " +  t.message.toString() + "\n 다시 시도해주세요."
-                viewBinding.tvError.visibility = View.VISIBLE
-                Log.d("api fail", t.message.toString())
-            }
-        })
-    }
 
     // 내 현재 위치의 위경도를 격자 좌표로 변환하여 해당 위치의 날씨정보 설정하기
     @SuppressLint("MissingPermission")
@@ -226,13 +190,39 @@ class HomeFragment :  Fragment(){
                             viewModel.nx = curPoint!!.x
                             viewModel.ny = curPoint!!.y
                             // 오늘 날짜 텍스트뷰 설정
-                            viewBinding.tvDate.text = SimpleDateFormat("MM월 dd일", Locale.getDefault()).format(
-                                Calendar.getInstance().time) + " 날씨"
+                            viewBinding.tvDate.text =
+                                SimpleDateFormat("MM월 dd일", Locale.getDefault()).format(
+                                    Calendar.getInstance().time
+                                ) + " 날씨"
                             // nx, ny지점의 날씨 가져와서 설정하기
                             setWeather(curPoint!!.x, curPoint!!.y)
-                            getLocationName(location.latitude, location.longitude)
-                            //getTemp(curPoint!!.x, curPoint!!.y)
+                            val address = getLocationName(location.latitude, location.longitude)
 
+                            if (viewModel.primitiveLocation.count() == 10 && !viewModel.addflag) {
+                                viewModel.addflag = true
+                                viewModel.primitiveLocation.removeAt(0)
+                                viewModel.primitiveLocation.add(
+                                    Triple(
+                                        location.latitude,
+                                        location.longitude,
+                                        address
+                                    )
+                                )
+                                viewModel.userLocation.add(Triple(curPoint!!.x,curPoint!!.y, address))
+                                Log.e("check", viewModel.primitiveLocation[viewModel.primitiveLocation.count()-1].third)
+                            } else if (!viewModel.addflag) {
+                                viewModel.addflag = true
+                                viewModel.primitiveLocation.add(
+                                    Triple(
+                                        location.latitude,
+                                        location.longitude,
+                                        address
+                                    )
+                                )
+                                viewModel.userLocation.add(Triple(curPoint!!.x,curPoint!!.y, address))
+                                Log.e("check", viewModel.primitiveLocation[viewModel.primitiveLocation.count()-1].third)
+                                // pirmitve에서 userlocation으로 넣고 주소 어떻게 하지? 쟤네가 calllocation 할때 parsing하자
+                            }
 
                         }
                     }
@@ -241,19 +231,23 @@ class HomeFragment :  Fragment(){
 
             // 내 위치 실시간으로 감지
             Looper.myLooper()?.let {
-                locationClient.requestLocationUpdates(locationRequest, locationCallback,
-                    it)
+                locationClient.requestLocationUpdates(
+                    locationRequest, locationCallback,
+                    it
+                )
             }
 
 
-        } catch (e : SecurityException) {
+        } catch (e: SecurityException) {
             e.printStackTrace()
         }
     }
 
-    private fun getLocationName(x : Double, y: Double) {
+    private fun getLocationName(x: Double, y: Double): String {
 
-        if(!checkactivityattatched) {return}
+        if (!checkactivityattatched) {
+            return ""
+        }
 
         val geocoder = Geocoder(requireActivity(), Locale.KOREA)
 
@@ -274,10 +268,9 @@ class HomeFragment :  Fragment(){
                 val addr = splitaddr[0].split(" ")
                 viewBinding.address.text = splitaddr[0]
                 viewModel.address = addr[1]
+                return splitaddr[0]
             }
         }
-
-
+        return ""
     }
-
 }

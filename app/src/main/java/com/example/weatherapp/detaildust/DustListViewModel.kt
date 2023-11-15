@@ -39,6 +39,8 @@ class DustListViewModel : ViewModel() {
 
     fun callLocationList(locations : MutableList<Triple<Double,Double,String>>) {
         for (i in locations) {
+            val parseaddress = i.third.split(" ")
+            val temp : Triple<Double, Double, String> = Triple(i.first,i.second,parseaddress[1])
             userLocationList.add(i)
             DustList.add(DustItem(address = i.third, x = i.first, y = i.second))
         }
