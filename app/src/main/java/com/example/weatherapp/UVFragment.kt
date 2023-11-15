@@ -1,5 +1,6 @@
 package com.example.weatherapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,6 +11,8 @@ import com.example.weatherapp.data.ModelUV
 import com.example.weatherapp.data.UVItem
 import com.example.weatherapp.data.UVResponse
 import com.example.weatherapp.databinding.FragmentUVBinding
+import com.example.weatherapp.detaildust.DustListActivity
+import com.example.weatherapp.detailuv.UVListActivity
 import com.example.weatherapp.network.UVObject
 import retrofit2.Call
 import retrofit2.Response
@@ -33,6 +36,10 @@ class UVFragment : Fragment() {
 
 
         selectaddresscode(viewModel.address)
+
+        viewBinding.btnGotoList.setOnClickListener {
+            startActivity(Intent(requireActivity(), UVListActivity::class.java))
+        }
 
         return viewBinding.root
     }
@@ -64,9 +71,6 @@ class UVFragment : Fragment() {
 
             // 응답 실패 시
             override fun onFailure(call: Call<ModelUV>, t: Throwable) {
-
-//                viewBinding.tvError.text = "api fail : " +  t.message.toString() + "\n 다시 시도해주세요."
-//                viewBinding.tvError.visibility = View.VISIBLE
                 Log.d("api fail", t.message.toString())
             }
         })

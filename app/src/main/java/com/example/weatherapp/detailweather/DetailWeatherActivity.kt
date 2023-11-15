@@ -40,6 +40,8 @@ class DetailWeatherActivity : AppCompatActivity() {
         listViewModel = app.weatherListViewModel
         viewModel.weather = intent.getParcelableExtra("weather") ?: ModelWeather()
 
+        viewBinding.address.text = viewModel.weather.address
+
 
         supportActionBar?.title = "마지막 위치의 날씨"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

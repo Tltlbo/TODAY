@@ -29,7 +29,7 @@ class DetailDustActivity : AppCompatActivity() {
         listViewModel = app.dustListVIewModel
         viewModel.dust = intent.getParcelableExtra("dust") ?: DustItem()
 
-
+        // uv에 삭제 기능 추가하고 각 리스트들 최신화 하는 거 해야 함
         supportActionBar?.title = "마지막 위치의 미세먼지"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

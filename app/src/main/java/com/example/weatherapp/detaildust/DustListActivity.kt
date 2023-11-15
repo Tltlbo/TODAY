@@ -36,6 +36,7 @@ class DustListActivity : AppCompatActivity() {
 
         if(viewModel.userLocationList.count() == 0) {
             viewModel.callLocationList(mainViewModel.primitiveLocation)
+            viewModel.setDust()
         }
 
 

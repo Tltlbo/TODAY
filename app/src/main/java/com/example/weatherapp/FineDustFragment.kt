@@ -51,6 +51,8 @@ class FineDustFragment : Fragment() {
 
         requestLocation()
 
+        viewBinding.address.text = viewModel.address
+
         viewBinding.btnGotoList.setOnClickListener {
             startActivity(Intent(requireActivity(), DustListActivity::class.java))
         }

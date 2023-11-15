@@ -1,7 +1,6 @@
 package com.example.weatherapp
 
 
-import android.graphics.Point
 import androidx.lifecycle.ViewModel
 import com.example.weatherapp.component.Common
 import com.example.weatherapp.data.ModelTemp
@@ -19,12 +18,12 @@ class MainViewModel : ViewModel() {
     ) //요거는 ModelUser로
 
     var primitiveLocation : MutableList<Triple<Double,Double,String>> = mutableListOf(
-        Triple(33.4110,126.4237, "제주"),
-        Triple(35.2052,128.1298, "진주"),
-        Triple(35.5537,129.2381, "울산"),
-        Triple(36.5438,127.3275, "세종"),
-        Triple(35.8356,128.6277, "대구"),
-        Triple(38.1940,128.5735, "강원")
+        Triple(33.4110,126.4237, "제주특별자치도"),
+        Triple(35.2052,128.1298, "경상남도"),
+        Triple(35.5537,129.2381, "울산광역시"),
+        Triple(36.5438,127.3275, "세종특별자치시"),
+        Triple(35.8356,128.6277, "대구광역시"),
+        Triple(38.1940,128.5735, "강원도")
     )
 
     fun modifyConv() {

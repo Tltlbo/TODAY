@@ -21,10 +21,17 @@
             android:usesCleartextTraffic="true"
             tools:targetApi="31">
         <activity
+                android:name=".detailuv.DetailuvActivity"
+                android:exported="false"
+                android:parentActivityName=".detailuv.UVListActivity"/>
+        <activity
+                android:name=".detailuv.UVListActivity"
+                android:exported="false"
+                android:parentActivityName=".MainActivity" />
+        <activity
                 android:name=".detaildust.DetailDustActivity"
                 android:exported="false"
-                android:parentActivityName=".detaildust.DustListActivity"
-                />
+                android:parentActivityName=".detaildust.DustListActivity" />
         <activity
                 android:name=".detaildust.DustListActivity"
                 android:exported="false"

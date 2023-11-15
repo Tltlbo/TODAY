@@ -13,11 +13,13 @@ data class DustResponse(
 @Parcelize
 data class DustItem(
     val pm10Grade: String = "",
-    val pm10Value: String = "",
+    var pm10Value: String = "0",
     val pm25Grade: String = "",
-    val pm25Value: String = "",
+    var pm25Value: String = "0",
     var address : String = "",
     var stationName : String = "",
+    var x : Double = 0.0,
+    var y : Double = 0.0,
 ) : Parcelable
 
 data class DustHeader(

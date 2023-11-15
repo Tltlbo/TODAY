@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.get
 import com.example.weatherapp.detaildust.DetailDustViewModel
 import com.example.weatherapp.detaildust.DustListViewModel
+import com.example.weatherapp.detailuv.DetailUVViewModel
+import com.example.weatherapp.detailuv.UVListViewModel
 import com.example.weatherapp.detailweather.DetailWeatherViewModel
 import com.example.weatherapp.detailweather.WeatherListViewModel
 
@@ -36,5 +38,12 @@ class MyApplication  : Application(){
         ViewModelProvider(viewModelStore, ViewModelProvider.NewInstanceFactory()).get(DetailDustViewModel::class.java)
     }
 
+    val uvListViewModel : UVListViewModel by lazy {
+        ViewModelProvider(viewModelStore, ViewModelProvider.NewInstanceFactory()).get(UVListViewModel::class.java)
+    }
+
+    val detailuvViewModel : DetailUVViewModel by lazy {
+        ViewModelProvider(viewModelStore, ViewModelProvider.NewInstanceFactory()).get(DetailUVViewModel::class.java)
+    }
 
 }

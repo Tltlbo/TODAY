@@ -31,16 +31,20 @@ class DustListViewModel : ViewModel() {
         _oDustList.value = DustList
     }
 
-
+    fun setDust() {
+        for (i in DustList) {
+            ConvCoord(i.y, i.x , i)
+        }
+    }
 
     fun callLocationList(locations : MutableList<Triple<Double,Double,String>>) {
         for (i in locations) {
             userLocationList.add(i)
-            ConvCoord(i.second,i.first,i.third)
+            DustList.add(DustItem(address = i.third, x = i.first, y = i.second))
         }
     }
 
-    private fun ConvCoord(nx: Double, ny: Double, address : String) {
+    private fun ConvCoord(nx: Double, ny: Double, ModelDust : DustItem) {
         val call = KakaoObject.getRetrofitService().getTmCoordinates(nx, ny)
 
         // 비동기적으로 실행하기
@@ -58,8 +62,7 @@ class DustListViewModel : ViewModel() {
                         tmy = it[i].y
                     }
 
-                    Log.e("tmx", tmx.toString())
-                    getStationName(tmx, tmy, address)
+                    getStationName(tmx, tmy, ModelDust)
 
                 }
             }
@@ -71,7 +74,7 @@ class DustListViewModel : ViewModel() {
         })
     }
 
-    private fun getStationName(tmx: Double, tmy: Double, address: String) {
+    private fun getStationName(tmx: Double, tmy: Double, ModelDust: DustItem) {
         val call = StationObject.getRetrofitService().getStation("json", tmx, tmy)
 
         // 비동기적으로 실행하기
@@ -81,12 +84,14 @@ class DustListViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     val it: List<StationItem> = response.body()!!.response.body.items
 
-                    var stationname = ""
-                    var stationaddress = ""
+                    var stationaddr = ""
 
-                    stationname = it[0].stationName
-                    stationaddress = it[0].addr
-                    getDust(stationname, address, stationaddress)
+
+                    stationaddr = it[0].addr
+
+                    ModelDust.stationName = stationaddr
+
+                    getDust(it[0].stationName, ModelDust)
 
                 }
             }
@@ -98,7 +103,7 @@ class DustListViewModel : ViewModel() {
         })
     }
 
-    private fun getDust(stationName : String, address: String, stationAddress: String) {
+    private fun getDust(stationName : String, ModelDust: DustItem) {
         val call = DustObject.getRetrofitService().getDust("json", 100, 1, stationName)
 
         // 비동기적으로 실행하기
@@ -108,10 +113,8 @@ class DustListViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     val it: List<DustItem> = response.body()!!.response.body.items
 
-
-                    val totalCount = response.body()!!.response.body.items.count() - 1
-
-                    DustList.add(DustItem(pm10Value = it[0].pm10Value, pm25Value = it[0].pm25Value, address = address, stationName = stationAddress))
+                    ModelDust.pm10Value = it[0].pm10Value
+                    ModelDust.pm25Value = it[0].pm25Value
                     _oDustList.value = DustList
                 }
             }

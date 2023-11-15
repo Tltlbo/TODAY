@@ -73,7 +73,6 @@ class RecommendFragment : Fragment() {
         imageView.setImageResource(imageResourceId)
     }
 
-    //어쩔수 없이 얘도 위치 정보 받아야 할듯?
     private fun getTemp(nx : Int, ny : Int) {
         // 준비 단계 : base_date(발표 일자), base_time(발표 시각)
         // 현재 날짜, 시간 정보 가져오기
@@ -103,8 +102,8 @@ class RecommendFragment : Fragment() {
                             else -> continue
                         }
                     }
-                    viewBinding.maxTemp.text = maxtemp
-                    viewBinding.minTemp.text = mintemp
+                    viewBinding.maxTemp.text = maxtemp + " °C"
+                    viewBinding.minTemp.text = mintemp + " °C"
                     viewModel.atemp.maxTemp = maxtemp
                     viewModel.atemp.minTemp = mintemp
                     updateWeatherImage()

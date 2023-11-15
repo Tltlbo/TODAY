@@ -72,19 +72,6 @@ class WeatherListActivity : AppCompatActivity() {
         listview.adapter = weatherAdapter
         listview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-//        binding.listView.setOnItemClickListener(OnItemClickListener { parent, view, position, id ->
-//
-//
-//            val recentweather : ModelWeather = (binding.listView.adapter.getItem(position) as ModelWeather)
-//
-//            // new Intent(현재 Activity의 Context, 시작할 Activity 클래스)
-//            val intent = Intent(this@WeatherListActivity, DetailWeatherActivity::class.java)
-//            // putExtra(key, value)
-//            intent.putExtra("recentweather", recentweather)
-//            startActivity(intent)
-//            // 이거 굳이 ModelRecentWeather 만들어서 해야함? 그냥 저거 가져와서 필요한거만 넣으면 되는거 아님?
-//        })
-
 
     }
 
