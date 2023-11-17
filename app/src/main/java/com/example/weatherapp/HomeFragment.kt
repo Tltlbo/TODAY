@@ -220,8 +220,6 @@ class HomeFragment :  Fragment() {
                                     )
                                 )
                                 viewModel.userLocation.add(Triple(curPoint!!.x,curPoint!!.y, address))
-                                Log.e("check", viewModel.primitiveLocation[viewModel.primitiveLocation.count()-1].third)
-                                // pirmitve에서 userlocation으로 넣고 주소 어떻게 하지? 쟤네가 calllocation 할때 parsing하자
                             }
 
                         }
