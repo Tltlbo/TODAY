@@ -76,6 +76,11 @@ class WeatherListActivity : AppCompatActivity() {
 
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.saveuserInfo(application as MyApplication)
+    }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
@@ -87,7 +92,4 @@ class WeatherListActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-
-
 }

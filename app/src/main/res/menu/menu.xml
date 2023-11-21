@@ -20,5 +20,5 @@
             android:title="자외선"
             android:enabled="true"
             android:id="@+id/menu_UV"
-            android:icon="@drawable/baseline_masks_24" />
+            android:icon="@drawable/baseline_wb_sunny_24" />
 </menu>

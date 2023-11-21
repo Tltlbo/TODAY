@@ -33,6 +33,7 @@ class UVFragment : Fragment() {
         val app = requireActivity().application as MyApplication
         viewBinding = FragmentUVBinding.inflate(layoutInflater)
         viewModel = app.mainViewModel
+        Log.e("checkUV", viewModel.userLocation.count().toString())
 
 
         selectaddresscode(viewModel.address)

@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         val app = application as MyApplication
 
         viewModel = app.mainViewModel
+        viewModel.loadlocationInfo()
 
 
         supportFragmentManager.beginTransaction().add(fl.id, HomeFragment()).commit()

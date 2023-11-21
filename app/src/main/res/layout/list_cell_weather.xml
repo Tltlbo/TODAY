@@ -20,15 +20,16 @@
             app:srcCompat="@drawable/baseline_masks_24" />
 
         <TextView
-            android:id="@+id/address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
-            android:text="지역명"
-            android:textColor="#000000"
-            app:layout_constraintStart_toEndOf="@+id/imageWeather"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/address"
+                android:layout_width="157dp"
+                android:layout_height="58dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:text="지역명"
+                android:maxLines="2"
+                android:textColor="#000000"
+                app:layout_constraintStart_toEndOf="@+id/imageWeather"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvHumidity"

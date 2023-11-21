@@ -61,8 +61,9 @@ class HomeFragment :  Fragment() {
             "MM월 dd일",
             Locale.getDefault()
         ).format(Calendar.getInstance().time) + "날씨"
-
         viewModel = app.mainViewModel
+        Log.e("HOme", viewModel.templocation[0].addr)
+        //viewModel.addloc(viewModel.templocation)
         viewModel.modifyConv()
         // <새로고침> 버튼 누를 때 위치 정보 & 날씨 정보 다시 가져오기
 
@@ -199,8 +200,10 @@ class HomeFragment :  Fragment() {
                             val address = getLocationName(location.latitude, location.longitude)
 
                             if (viewModel.primitiveLocation.count() == 10 && !viewModel.addflag) {
+                                Log.e("꽉 참", "사라짐")
                                 viewModel.addflag = true
                                 viewModel.primitiveLocation.removeAt(0)
+                                viewModel.userLocation.removeAt(0)
                                 viewModel.primitiveLocation.add(
                                     Triple(
                                         location.latitude,
@@ -209,8 +212,8 @@ class HomeFragment :  Fragment() {
                                     )
                                 )
                                 viewModel.userLocation.add(Triple(curPoint!!.x,curPoint!!.y, address))
-                                Log.e("check", viewModel.primitiveLocation[viewModel.primitiveLocation.count()-1].third)
                             } else if (!viewModel.addflag) {
+                                Log.e("사라지긴 함?", "사라짐")
                                 viewModel.addflag = true
                                 viewModel.primitiveLocation.add(
                                     Triple(

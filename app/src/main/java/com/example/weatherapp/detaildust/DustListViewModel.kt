@@ -38,6 +38,7 @@ class DustListViewModel : ViewModel() {
     }
 
     fun callLocationList(locations : MutableList<Triple<Double,Double,String>>) {
+        Log.e("Dust", locations.count().toString())
         for (i in locations) {
             val parseaddress = i.third.split(" ")
             val temp : Triple<Double, Double, String> = Triple(i.first,i.second,parseaddress[1])
