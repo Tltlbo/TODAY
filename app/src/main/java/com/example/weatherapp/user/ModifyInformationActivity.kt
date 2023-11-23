@@ -62,6 +62,11 @@ class ModifyInfomationActivity : AppCompatActivity() {
                     viewModel.User.introduction = introduct
                     mainviewModel.User.userName = tempname
                     mainviewModel.User.introduction = introduct
+                    Toast.makeText(
+                        this@ModifyInfomationActivity,
+                        "사용자 정보가 성공적으로 수정되었습니다.",
+                        Toast.LENGTH_LONG
+                    ).show()
                     finish()
                 }
             }

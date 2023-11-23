@@ -22,9 +22,19 @@
             android:layout_gravity="center"
             android:orientation="vertical">
 
+        <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_marginTop="0dp" />
+
+
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_marginTop="70dp"
                 android:gravity="right">
 
@@ -44,6 +54,7 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_gravity="center">
+
             <TextView
                     android:id="@+id/address"
                     android:layout_width="match_parent"
@@ -51,9 +62,10 @@
                     android:text="주소"
                     android:textSize="30dp"
                     android:textColor="@color/black"
-                    android:layout_margin="10dp"
+                    android:layout_marginTop="-140dp"
                     android:gravity="center"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" />
+
             <TextView
                     android:id="@+id/tvDate"
                     android:layout_width="match_parent"
@@ -62,7 +74,7 @@
                     android:textSize="30dp"
                     android:textColor="@color/black"
                     android:layout_margin="10dp"
-                    android:gravity="center"/>
+                    android:gravity="center" />
 
             <TextView
                     android:id="@+id/tvError"
@@ -81,14 +93,15 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
             <Button
                     android:id="@+id/btnRefresh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="새로고침"/>
+
+                    android:text="새로고침" />
 
         </LinearLayout>
 

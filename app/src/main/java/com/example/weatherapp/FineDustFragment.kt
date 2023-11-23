@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.weatherapp.data.Document
 import com.example.weatherapp.data.KakaoMapModel
@@ -86,6 +87,15 @@ class FineDustFragment : Fragment() {
 
             // 응답 실패 시
             override fun onFailure(call: Call<ModelDust>, t: Throwable) {
+                if(isAdded()) {
+                    requireActivity().runOnUiThread {
+                        Toast.makeText(
+                            requireActivity(),
+                            "api요청에 실패하였습니다. Dust탭을 다시 눌러 재요청바랍니다.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
                 Log.d("api fail", t.message.toString())
             }
         })

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.weatherapp.component.Common
 import com.example.weatherapp.data.TEMP
@@ -158,6 +159,15 @@ class RecommendFragment : Fragment() {
             // 응답 실패 시
             override fun onFailure(call: Call<TEMP>, t: Throwable) {
 
+                if(isAdded()) {
+                    requireActivity().runOnUiThread {
+                        Toast.makeText(
+                            requireActivity(),
+                            "api요청에 실패하였습니다. recommend탭을 다시 눌러 재요청바랍니다.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
                 Log.d("api fail", t.message.toString())
             }
         })

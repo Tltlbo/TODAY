@@ -1,23 +1,27 @@
 package com.example.weatherapp
 
 import android.Manifest
+import android.app.ProgressDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.FrameLayout
-import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import com.example.weatherapp.databinding.ActivityMainBinding
 import com.example.weatherapp.user.PedometerActivity
 import com.example.weatherapp.user.UserInformationActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var viewModel : MainViewModel
     lateinit var binding : ActivityMainBinding
+
 
     private val fl: FrameLayout by lazy {
         findViewById(R.id.fl_)
@@ -35,7 +39,11 @@ class MainActivity : AppCompatActivity() {
 
         val app = application as MyApplication
 
+
+
         viewModel = app.mainViewModel
+
+
         viewModel.loadlocationInfo()
         viewModel.getUserInfo()
 

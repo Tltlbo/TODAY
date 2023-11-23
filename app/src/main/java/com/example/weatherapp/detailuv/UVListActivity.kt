@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherapp.MainViewModel
@@ -40,6 +41,11 @@ class UVListActivity : AppCompatActivity() {
             viewModel.setUV(viewModel.UVList)
         }
 
+        Toast.makeText(
+            this,
+            "정보를 불러오는 중입니다.",
+            Toast.LENGTH_LONG
+        ).show()
 
 
         val listview = binding.uvlist
@@ -63,5 +69,10 @@ class UVListActivity : AppCompatActivity() {
         super.onPause()
         val app = application as MyApplication
         viewModel.saveuserInfo(app)
+        Toast.makeText(
+            this,
+            "마지막 위치 정보가 성공적으로 저장되었습니다.",
+            Toast.LENGTH_LONG
+        ).show()
     }
 }

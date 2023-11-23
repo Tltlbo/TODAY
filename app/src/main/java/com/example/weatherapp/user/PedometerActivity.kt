@@ -10,6 +10,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -39,6 +40,8 @@ class PedometerActivity : AppCompatActivity(), SensorEventListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPedometerBinding.inflate(layoutInflater)
+        val app = application as MyApplication
+        currentSteps = app.mainViewModel.User.stepCount
         setContentView(binding.root)
     }
 
@@ -110,6 +113,12 @@ class PedometerActivity : AppCompatActivity(), SensorEventListener {
                     }
                     val mainViewModel = app.mainViewModel
                     mainViewModel.User.stepCount = currentSteps
+
+                    Toast.makeText(
+                        this@PedometerActivity,
+                        "걸음 수 정보가 성공적으로 저장되었습니다.",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
 

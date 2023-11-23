@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.weatherapp.data.ModelUV
 import com.example.weatherapp.data.UVItem
 import com.example.weatherapp.data.UVResponse
@@ -33,7 +34,6 @@ class UVFragment : Fragment() {
         val app = requireActivity().application as MyApplication
         viewBinding = FragmentUVBinding.inflate(layoutInflater)
         viewModel = app.mainViewModel
-        Log.e("checkUV", viewModel.userLocation.count().toString())
         selectaddresscode(viewModel.address)
 
 
@@ -72,13 +72,21 @@ class UVFragment : Fragment() {
 
             // 응답 실패 시
             override fun onFailure(call: Call<ModelUV>, t: Throwable) {
+                if(isAdded()) {
+                    requireActivity().runOnUiThread {
+                        Toast.makeText(
+                            requireActivity(),
+                            "api요청에 실패하였습니다. UV탭을 다시 눌러 재요청바랍니다.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
                 Log.d("api fail", t.message.toString())
             }
         })
     }
 
     private fun selectaddresscode(address : String) {
-        Log.e("address", address)
         if(address.equals("서울특별시")) {getUV("1100000000")}
         else if(address.equals("부산광역시")) {getUV("2600000000")}
         else if(address.equals("대구광역시")) {getUV("2700000000")}

@@ -1,16 +1,20 @@
 package com.example.weatherapp
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Point
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.weatherapp.adapter.WeatherAdapter
@@ -44,6 +48,8 @@ class HomeFragment :  Fragment() {
     private var baseTime = "1100"      // 발표 시각
     private var curPoint: Point? = null    // 현재 위치의 격자 좌표를 저장할 포인트
     var checkactivityattatched = false
+    var dialog : ProgressDialog? = null
+    var progressbar : ProgressBar? = null
 
     lateinit var viewModel: MainViewModel
 
@@ -62,6 +68,14 @@ class HomeFragment :  Fragment() {
             Locale.getDefault()
         ).format(Calendar.getInstance().time) + "날씨"
         viewModel = app.mainViewModel
+        progressbar = viewBinding.progressBar
+        progressbar!!.setIndeterminate(false)
+        dialog = ProgressDialog(requireActivity())
+        dialog!!.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+        dialog!!.setCancelable(false)
+        dialog!!.setMessage("잠시만 기다려주세요")
+        dialog!!.show()
+
         viewModel.modifyConv()
 
         return viewBinding.root
@@ -71,6 +85,7 @@ class HomeFragment :  Fragment() {
 
         checkactivityattatched = true
         requestLocation() // 생명 주기 문제 에러
+
         viewBinding.btnRefresh.setOnClickListener {
             requestLocation()
         }
@@ -149,17 +164,22 @@ class HomeFragment :  Fragment() {
 
                     // 리사이클러 뷰에 데이터 연결
                     viewBinding.weatherRecyclerView.adapter = WeatherAdapter(weatherArr)
+                    dialog!!.dismiss()
 
-                    // 토스트 띄우기
-                    //Toast.makeText(applicationContext, it[0].fcstDate + ", " + it[0].fcstTime + "의 날씨 정보입니다.", Toast.LENGTH_SHORT).show()
                 }
             }
 
             // 응답 실패 시
             override fun onFailure(call: Call<WEATHER>, t: Throwable) {
-
-                viewBinding.tvError.text = "api fail : " + t.message.toString() + "\n 다시 시도해주세요."
-                viewBinding.tvError.visibility = View.VISIBLE
+                if(isAdded()) {
+                    requireActivity().runOnUiThread {
+                        Toast.makeText(
+                            requireActivity(),
+                            "api요청에 실패하였습니다. 재요청합니다.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
                 Log.d("api fail", t.message.toString())
             }
         })

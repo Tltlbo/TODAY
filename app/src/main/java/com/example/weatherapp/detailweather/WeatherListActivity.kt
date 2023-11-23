@@ -12,6 +12,7 @@ import android.os.PersistableBundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.AdapterView.OnItemClickListener
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -34,14 +35,21 @@ class WeatherListActivity : AppCompatActivity() {
     private var baseDate = "20230809"  // 발표 일자
     private var baseTime = "1100"
 
-    private lateinit var binding : ActivityWeatherListBinding
-    lateinit var viewModel : WeatherListViewModel
-    lateinit var mainViewModel : MainViewModel
+    private lateinit var binding: ActivityWeatherListBinding
+    lateinit var viewModel: WeatherListViewModel
+    lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWeatherListBinding.inflate(layoutInflater)
         val app = application as MyApplication
+
+        Toast.makeText(
+            this,
+            "정보를 불러오는 중입니다.",
+            Toast.LENGTH_LONG
+        ).show()
+
 
         supportActionBar?.title = "마지막 위치의 날씨"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -51,14 +59,14 @@ class WeatherListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        if(viewModel.userLocationList.count() == 0) {
+        if (viewModel.userLocationList.count() == 0) {
             viewModel.callLocationList(mainViewModel.userLocation)
             viewModel.getWeather(viewModel.WeatherList)
         }
 
 
         val listview = binding.weatherlist
-        val weatherAdapter = exWeatherAdapter(this ,viewModel.WeatherList)
+        val weatherAdapter = exWeatherAdapter(this, viewModel.WeatherList)
         weatherAdapter.itemClickListener = object : exWeatherAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
                 val weather = viewModel.WeatherList[position]
@@ -69,7 +77,7 @@ class WeatherListActivity : AppCompatActivity() {
         }
 
 
-        viewModel.oWeatherList.observe(this, Observer {weatherAdapter.updateList()})
+        viewModel.oWeatherList.observe(this, Observer { weatherAdapter.updateList() })
         listview.adapter = weatherAdapter
         listview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
@@ -79,12 +87,17 @@ class WeatherListActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         viewModel.saveuserInfo(application as MyApplication)
+        Toast.makeText(
+            this,
+            "마지막 위치 정보가 성공적으로 저장되었습니다.",
+            Toast.LENGTH_LONG
+        ).show()
     }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
-        when(id) {
+        when (id) {
             android.R.id.home -> {
                 finish()
                 return true
