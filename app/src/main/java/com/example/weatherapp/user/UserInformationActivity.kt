@@ -23,6 +23,7 @@ class UserInformationActivity : AppCompatActivity() {
         binding = ActivityUserInformationBinding.inflate(layoutInflater)
         val app = application as MyApplication
         viewModel = app.userInformationViewModel
+        app.userInfoflag = true
         mainviewModel = app.mainViewModel
         setContentView(binding.root)
 

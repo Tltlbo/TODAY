@@ -9,15 +9,9 @@ import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.ViewModelProvider
-import com.example.weatherapp.data.ModelUser
 import com.example.weatherapp.databinding.ActivityMainBinding
-import com.example.weatherapp.detailuv.DetailuvActivity
-import com.example.weatherapp.detailweather.WeatherListActivity
-import com.example.weatherapp.user.ModifyInfomationActivity
-import com.example.weatherapp.user.PedometerFragment
+import com.example.weatherapp.user.PedometerActivity
 import com.example.weatherapp.user.UserInformationActivity
-import com.google.firebase.auth.FirebaseAuth
 
 
 class MainActivity : AppCompatActivity() {
@@ -53,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnGotoPedometer.setOnClickListener {
-            val intent = Intent(this@MainActivity, PedometerFragment::class.java)
+            val intent = Intent(this@MainActivity, PedometerActivity::class.java)
             intent.putExtra("user", viewModel.User)
             startActivity(intent)
         }

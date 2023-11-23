@@ -6,8 +6,8 @@
     <data>
 
         <variable
-                name="fragment"
-                type="com.example.weatherapp.user.PedometerFragment" />
+                name="activity"
+                type="com.example.weatherapp.user.PedometerActivity" />
 
 
     </data>

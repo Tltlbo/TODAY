@@ -20,7 +20,7 @@ class MyApplication  : Application(){
     var weatherlistflag = false
     var dustlistflag = false
     var uvlistflag = false
-
+    var userInfoflag = false
 
     val mainViewModel : MainViewModel by lazy {
         ViewModelProvider(viewModelStore, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
