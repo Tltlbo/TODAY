@@ -58,4 +58,10 @@ class UVListActivity : AppCompatActivity() {
         listview.adapter = uvAdapter
         listview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }
+
+    override fun onPause() {
+        super.onPause()
+        val app = application as MyApplication
+        viewModel.saveuserInfo(app)
+    }
 }

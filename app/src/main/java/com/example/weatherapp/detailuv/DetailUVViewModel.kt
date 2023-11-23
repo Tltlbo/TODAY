@@ -1,5 +1,6 @@
 package com.example.weatherapp.detailuv
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weatherapp.MyApplication
@@ -21,11 +22,15 @@ class DetailUVViewModel : ViewModel() {
     fun deleteuvInfo(uv : UVItem, locationlist : ArrayList<Triple<Double,Double, String>>, uvlist : MutableList<UVItem>, ouvlist : MutableLiveData<List<UVItem>>, app : MyApplication) {
 
         var index = -1
+        var tempindex = uvlist.indexOf(uv)
         for( i in locationlist) {
+            Log.e("uvaddress", uv.address)
+            Log.e("iaddress", i.third)
             if(i.third.equals(uv.address)) {
                 index = locationlist.indexOf(i)
             }
         }
+        Log.e("deleteUVInfo", index.toString())
 
         if(app.dustlistflag) {
             var dustindex = -1
@@ -51,7 +56,7 @@ class DetailUVViewModel : ViewModel() {
             app.weatherListViewModel._oWeatherList.value = app.weatherListViewModel.WeatherList
         }
 
-        locationlist.removeAt(index)
+        locationlist.removeAt(tempindex)
 
         uvlist.remove(uv)
         ouvlist.value = uvlist
