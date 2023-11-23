@@ -34,9 +34,8 @@ class UVFragment : Fragment() {
         viewBinding = FragmentUVBinding.inflate(layoutInflater)
         viewModel = app.mainViewModel
         Log.e("checkUV", viewModel.userLocation.count().toString())
-
-
         selectaddresscode(viewModel.address)
+
 
         viewBinding.btnGotoList.setOnClickListener {
             startActivity(Intent(requireActivity(), UVListActivity::class.java))
@@ -67,6 +66,7 @@ class UVFragment : Fragment() {
                     }
 
                     viewBinding.todayUVindex.text = maxUV.toString()
+                    viewBinding.UVImg.setImageResource(getUVImage(maxUV))
                 }
             }
 
@@ -97,5 +97,13 @@ class UVFragment : Fragment() {
         else if(address.equals("제주특별자치도")) {getUV("5000000000")}
         else if(address.equals("이어도")) {getUV("5019000000")}
         else if(address.equals("강원도")) {getUV("5100000000")}
+    }
+
+    fun getUVImage(uv : Int) : Int {
+        if(uv <= 2) { return R.drawable.bestuv }
+        else if (uv <= 5) {return R.drawable.gooduv}
+        else if (uv <= 7) {return R.drawable.betteruv}
+        else if (uv <= 10) {return R.drawable.baduv }
+        else {return R.drawable.terroruv}
     }
 }

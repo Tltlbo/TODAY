@@ -21,16 +21,7 @@ class DetailUVViewModel : ViewModel() {
 
     fun deleteuvInfo(uv : UVItem, locationlist : ArrayList<Triple<Double,Double, String>>, uvlist : MutableList<UVItem>, ouvlist : MutableLiveData<List<UVItem>>, app : MyApplication) {
 
-        var index = -1
-        var tempindex = uvlist.indexOf(uv)
-        for( i in locationlist) {
-            Log.e("uvaddress", uv.address)
-            Log.e("iaddress", i.third)
-            if(i.third.equals(uv.address)) {
-                index = locationlist.indexOf(i)
-            }
-        }
-        Log.e("deleteUVInfo", index.toString())
+        var index = uvlist.indexOf(uv)
 
         if(app.dustlistflag) {
             var dustindex = -1
@@ -56,7 +47,7 @@ class DetailUVViewModel : ViewModel() {
             app.weatherListViewModel._oWeatherList.value = app.weatherListViewModel.WeatherList
         }
 
-        locationlist.removeAt(tempindex)
+        locationlist.removeAt(index)
 
         uvlist.remove(uv)
         ouvlist.value = uvlist
