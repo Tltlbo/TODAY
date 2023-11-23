@@ -39,4 +39,11 @@ interface UserInterface {
     fun getUserInfo(
         @Query("userAccountId") AccountId : String
     ) : Call<ModelUser>
+
+    @POST("/information/step-count?")
+    fun saveStepCount(
+        @Query("userAccountId") AccountId: String,
+        @Query("stepCount") stepCount : Int
+    ) : Call<Void>
+
 }

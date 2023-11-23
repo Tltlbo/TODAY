@@ -15,6 +15,7 @@ import com.example.weatherapp.databinding.ActivityMainBinding
 import com.example.weatherapp.detailuv.DetailuvActivity
 import com.example.weatherapp.detailweather.WeatherListActivity
 import com.example.weatherapp.user.ModifyInfomationActivity
+import com.example.weatherapp.user.PedometerFragment
 import com.example.weatherapp.user.UserInformationActivity
 import com.google.firebase.auth.FirebaseAuth
 
@@ -47,6 +48,12 @@ class MainActivity : AppCompatActivity() {
         Log.e("user", viewModel.User.userName)
         binding.btnGotoUserInfo.setOnClickListener {
             val intent = Intent(this@MainActivity, UserInformationActivity::class.java)
+            intent.putExtra("user", viewModel.User)
+            startActivity(intent)
+        }
+
+        binding.btnGotoPedometer.setOnClickListener {
+            val intent = Intent(this@MainActivity, PedometerFragment::class.java)
             intent.putExtra("user", viewModel.User)
             startActivity(intent)
         }

@@ -8,6 +8,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.example.weatherapp.databinding.FragmentPedometerBinding
+import com.example.weatherapp.network.UserObject
+import com.google.firebase.auth.FirebaseAuth
+import retrofit2.Call
+import retrofit2.Response
 
 class PedometerFragment : Fragment(), SensorEventListener {
 
@@ -91,5 +96,25 @@ class PedometerFragment : Fragment(), SensorEventListener {
         super.onDestroyView()
         sensorManager.unregisterListener(this)
         _binding = null
+    }
+
+    private fun saveStepCount() {
+        var auth = FirebaseAuth.getInstance()
+        val call = UserObject.getRetrofitService().saveStepCount(auth.currentUser?.email!!.toString(),2)
+        //여기다가 stepCount 넣어주시면 됩니다.
+
+        // 비동기적으로 실행하기
+        call.enqueue(object : retrofit2.Callback<Void> {
+            // 응답 성공 시
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                }
+            }
+
+            // 응답 실패 시
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("api fail", t.message.toString())
+            }
+        })
     }
 }
