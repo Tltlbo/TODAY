@@ -7,8 +7,11 @@
     <data>
 
         <variable
-                name="weatherlistActivity"
-                type="com.example.weatherapp.detailweather.WeatherListActivity" />
+                name="ModifyinformationActivity"
+                type="com.example.weatherapp.user.ModifyInfomationActivity" />
+        <variable
+                name="UserInfoViewModel"
+                type="com.example.weatherapp.user.UserInformationViewModel" />
     </data>
 
     <LinearLayout
@@ -24,29 +27,50 @@
                 android:text="이메일"
                 android:textSize="18sp" />
 
-        <EditText
+        <TextView
                 android:id="@+id/emailText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:enabled="false"
+                android:textSize="18dp"
                 android:layout_marginTop="8dp" />
 
         <TextView
-                android:id="@+id/phoneLabel"
+                android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="전화번호"
+                android:text="이름"
                 android:textSize="18sp"
                 android:layout_marginTop="16dp" />
 
         <EditText
-                android:id="@+id/phoneText"
+                android:id="@+id/userNameText"
+                android:text="@={ModifyinformationActivity.name}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
+                android:inputType="text"
                 android:enabled="true"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                />
+
+        <TextView
+                android:id="@+id/introductionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="소개"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+
+        <EditText
+                android:id="@+id/introduction"
+                android:text="@={ModifyinformationActivity.introduction}"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:inputType="text"
+                android:enabled="true"
+                android:layout_marginTop="8dp"
+                />
 
         <View
                 android:layout_width="match_parent"

@@ -2,13 +2,23 @@ package com.example.weatherapp
 
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModel
+import com.example.weatherapp.adapter.WeatherAdapter
 import com.example.weatherapp.component.Common
 import com.example.weatherapp.data.Document
+import com.example.weatherapp.data.KakaoMapModel
 import com.example.weatherapp.data.ModelTemp
+import com.example.weatherapp.data.ModelUser
+import com.example.weatherapp.data.ModelWeather
 import com.example.weatherapp.data.TEMP
 import com.example.weatherapp.data.TEMPITEM
+import com.example.weatherapp.data.WEATHER
+import com.example.weatherapp.data.WEATHERITEM
+import com.example.weatherapp.network.KakaoObject
 import com.example.weatherapp.network.TempObject
+import com.example.weatherapp.network.UserObject
+import com.example.weatherapp.network.WeatherObject
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,6 +31,9 @@ import okhttp3.internal.wait
 import retrofit2.Call
 import retrofit2.Response
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 import kotlin.math.min
 
 data class tempuserlocation(
@@ -35,6 +48,8 @@ class MainViewModel : ViewModel() {
     var addflag = false
     var addlocflag = false
     var modifyConvFlag = false
+
+    var User : ModelUser = ModelUser("",0.0,0.0,"",0.0,0.0,0,"")
 
     var nx: Int = 0
     var ny: Int = 0
@@ -163,6 +178,61 @@ class MainViewModel : ViewModel() {
             primitiveLocation.add(Triple(i.nx!!,i.ny!!,i.addr))
         }
         addlocflag = true
+    }
+
+     private fun createUserInfo() {
+         var auth = FirebaseAuth.getInstance()
+        val call = UserObject.getRetrofitService().createUserInfo(accountId = auth.currentUser?.email!!, endX = 0.0, endY = 0.0, introduction = "입력해주세요", startX = 0.0, startY = 0.0, stepCount = 0, userName = "Unknown")
+
+        // 비동기적으로 실행하기
+        call.enqueue(object : retrofit2.Callback<String> {
+            // 응답 성공 시
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if (response.isSuccessful) {
+                }
+            }
+
+            // 응답 실패 시
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.d("api fail", t.message.toString())
+            }
+        })
+    }
+
+    fun getUserInfo() {
+        val auth = FirebaseAuth.getInstance()
+        val call = UserObject.getRetrofitService().getUserInfo(auth.currentUser?.email!!)
+
+        // 비동기적으로 실행하기
+        call.enqueue(object : retrofit2.Callback<ModelUser> {
+            // 응답 성공 시
+            override fun onResponse(call: Call<ModelUser>, response: Response<ModelUser>) {
+                if (response.isSuccessful) {
+                    val it : ModelUser = response.body()!!
+                    User.userName = it.userName
+                    User.endX = it.endX
+                    User.endY = it.endY
+                    User.startX = it.startX
+                    User.startY = it.startY
+                    User.accountId = it.accountId
+                    User.introduction = it.introduction
+                    User.stepCount = it.stepCount
+                }
+            }
+
+            // 응답 실패 시
+            override fun onFailure(call: Call<ModelUser>, t: Throwable) {
+                createUserInfo()
+                User.userName = "Unknown"
+                User.endX = 0.0
+                User.endY = 0.0
+                User.startX = 0.0
+                User.startY = 0.0
+                User.accountId = auth.currentUser?.email.toString()
+                User.introduction = "입력해주세요"
+                User.stepCount = 0
+            }
+        })
     }
 
 }

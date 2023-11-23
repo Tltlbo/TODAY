@@ -24,6 +24,7 @@ android {
         buildConfigField("String", "URL_UV", getApiKey("url.UV"))
         buildConfigField("String", "KAKAO_KEY", getApiKey("kakao.key"))
         buildConfigField("String", "URL_STATION", getApiKey("url.station"))
+        buildConfigField("String", "URL_SERVER", getApiKey("url.server"))
     }
 
     buildTypes {
@@ -46,6 +47,7 @@ android {
     buildFeatures {
         dataBinding = true
         buildConfig = true
+        viewBinding = true
     }
     sourceSets {
         getByName("main") {

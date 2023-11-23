@@ -12,6 +12,7 @@ import com.example.weatherapp.detailuv.DetailUVViewModel
 import com.example.weatherapp.detailuv.UVListViewModel
 import com.example.weatherapp.detailweather.DetailWeatherViewModel
 import com.example.weatherapp.detailweather.WeatherListViewModel
+import com.example.weatherapp.user.UserInformationViewModel
 
 class MyApplication  : Application(){
 
@@ -48,6 +49,10 @@ class MyApplication  : Application(){
 
     val detailuvViewModel : DetailUVViewModel by lazy {
         ViewModelProvider(viewModelStore, ViewModelProvider.NewInstanceFactory()).get(DetailUVViewModel::class.java)
+    }
+
+    val userInformationViewModel : UserInformationViewModel by lazy {
+        ViewModelProvider(viewModelStore, ViewModelProvider.NewInstanceFactory()).get(UserInformationViewModel::class.java)
     }
 
 }

@@ -14,15 +14,21 @@
             android:enableOnBackInvokedCallback="true"
             android:fullBackupContent="@xml/backup_rules"
             android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
+            android:label="TODAY"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Base.Theme.WeatherApp"
             android:usesCleartextTraffic="true"
             tools:targetApi="31">
         <activity
-                android:name=".user.MyInfomationActivity"
-                android:exported="false" />
+                android:name=".user.UserInformationActivity"
+                android:exported="false"
+                android:parentActivityName=".MainActivity"
+                />
+        <activity
+                android:name=".user.ModifyInfomationActivity"
+                android:exported="false"
+                android:parentActivityName=".user.UserInformationActivity" />
         <activity
                 android:name=".detailuv.DetailuvActivity"
                 android:exported="false"

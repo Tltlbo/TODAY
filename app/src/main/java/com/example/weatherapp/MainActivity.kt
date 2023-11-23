@@ -1,6 +1,7 @@
 package com.example.weatherapp
 
 import android.Manifest
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,11 +10,19 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
+import com.example.weatherapp.data.ModelUser
+import com.example.weatherapp.databinding.ActivityMainBinding
+import com.example.weatherapp.detailuv.DetailuvActivity
+import com.example.weatherapp.detailweather.WeatherListActivity
+import com.example.weatherapp.user.ModifyInfomationActivity
+import com.example.weatherapp.user.UserInformationActivity
+import com.google.firebase.auth.FirebaseAuth
 
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var viewModel : MainViewModel
+    lateinit var binding : ActivityMainBinding
 
     private val fl: FrameLayout by lazy {
         findViewById(R.id.fl_)
@@ -25,12 +34,23 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setTheme(androidx.appcompat.R.style.Theme_AppCompat_Light_NoActionBar)
+        setContentView(binding.root)
 
         val app = application as MyApplication
 
         viewModel = app.mainViewModel
         viewModel.loadlocationInfo()
+        viewModel.getUserInfo()
+
+        Log.e("user", viewModel.User.userName)
+        binding.btnGotoUserInfo.setOnClickListener {
+            val intent = Intent(this@MainActivity, UserInformationActivity::class.java)
+            intent.putExtra("user", viewModel.User)
+            startActivity(intent)
+        }
+
 
 
         supportFragmentManager.beginTransaction().add(fl.id, HomeFragment()).commit()
