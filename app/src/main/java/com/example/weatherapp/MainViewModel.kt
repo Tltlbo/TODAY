@@ -217,20 +217,23 @@ class MainViewModel : ViewModel() {
                     User.accountId = it.accountId
                     User.introduction = it.introduction
                     User.stepCount = it.stepCount
+                } else {
+                    createUserInfo()
+                    User.userName = "Unknown"
+                    User.endX = 0.0
+                    User.endY = 0.0
+                    User.startX = 0.0
+                    User.startY = 0.0
+                    User.accountId = auth.currentUser?.email.toString()
+                    User.introduction = "입력해주세요"
+                    User.stepCount = 0
                 }
             }
 
             // 응답 실패 시
             override fun onFailure(call: Call<ModelUser>, t: Throwable) {
                 createUserInfo()
-                User.userName = "Unknown"
-                User.endX = 0.0
-                User.endY = 0.0
-                User.startX = 0.0
-                User.startY = 0.0
-                User.accountId = auth.currentUser?.email.toString()
-                User.introduction = "입력해주세요"
-                User.stepCount = 0
+
             }
         })
     }
