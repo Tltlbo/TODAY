@@ -15,7 +15,7 @@
             android:fullBackupContent="@xml/backup_rules"
             android:icon="@mipmap/ic_launcher"
             android:label="TODAY"
-            android:roundIcon="@mipmap/ic_launcher_round"
+            android:roundIcon="@drawable/sunicon"
             android:supportsRtl="true"
             android:theme="@style/Base.Theme.WeatherApp"
             android:usesCleartextTraffic="true"
