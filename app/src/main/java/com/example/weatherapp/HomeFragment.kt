@@ -3,6 +3,7 @@ package com.example.weatherapp
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Point
 import android.location.Address
 import android.location.Geocoder
@@ -15,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.weatherapp.adapter.WeatherAdapter
@@ -68,13 +70,16 @@ class HomeFragment :  Fragment() {
             Locale.getDefault()
         ).format(Calendar.getInstance().time) + "날씨"
         viewModel = app.mainViewModel
-        progressbar = viewBinding.progressBar
-        progressbar!!.setIndeterminate(false)
-        dialog = ProgressDialog(requireActivity())
-        dialog!!.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-        dialog!!.setCancelable(false)
-        dialog!!.setMessage("잠시만 기다려주세요")
-        dialog!!.show()
+
+        if (ContextCompat.checkSelfPermission(requireActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireActivity(),android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED && isAdded) {
+            progressbar = viewBinding.progressBar
+            progressbar!!.setIndeterminate(false)
+            dialog = ProgressDialog(requireActivity())
+            dialog!!.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+            dialog!!.setCancelable(false)
+            dialog!!.setMessage("잠시만 기다려주세요")
+            dialog!!.show()
+        }
 
         viewModel.modifyConv()
 
